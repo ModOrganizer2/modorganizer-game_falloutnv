@@ -62,14 +62,11 @@ void GameFalloutNV::detectGame()
 QList<ExecutableInfo> GameFalloutNV::executables() const
 {
   return QList<ExecutableInfo>()
-      << ExecutableInfo("NVSE", findInGameFolder(feature<ScriptExtender>()->loaderName()))
-      << ExecutableInfo("New Vegas", findInGameFolder(binaryName()))
-      << ExecutableInfo("Fallout Mod Manager", findInGameFolder("fomm/fomm.exe"))
-      << ExecutableInfo("Construction Kit", findInGameFolder("geck.exe"))
-      << ExecutableInfo("Fallout Launcher", findInGameFolder(getLauncherName()))
-      << ExecutableInfo("BOSS", findInGameFolder("BOSS/BOSS.exe"))
-      << ExecutableInfo("LOOT", QFileInfo(getLootPath())).withArgument("--game=\"FalloutNV\"")
-         ;
+    << ExecutableInfo("NVSE", findInGameFolder(feature<ScriptExtender>()->loaderName()))
+    << ExecutableInfo("New Vegas", findInGameFolder(binaryName()))
+    << ExecutableInfo("Construction Kit", findInGameFolder("geck.exe"))
+    << ExecutableInfo("Fallout Launcher", findInGameFolder(getLauncherName()))
+    << ExecutableInfo("LOOT", QFileInfo(getLootPath())).withArgument("--game=\"FalloutNV\"");
 }
 
 QList<ExecutableForcedLoadSetting> GameFalloutNV::executableForcedLoads() const
@@ -124,7 +121,6 @@ void GameFalloutNV::initializeProfile(const QDir &path, ProfileSettings settings
 
     copyToProfile(myGamesPath(), path, "falloutprefs.ini");
 	  copyToProfile(myGamesPath(), path, "falloutcustom.ini");
-    copyToProfile(myGamesPath(), path, "custom.ini");
     copyToProfile(myGamesPath(), path, "GECKCustom.ini");
     copyToProfile(myGamesPath(), path, "GECKPrefs.ini");
 
@@ -173,7 +169,7 @@ QString GameFalloutNV::gameNexusName() const
 
 QStringList GameFalloutNV::iniFiles() const
 {
-  return { "fallout.ini", "falloutprefs.ini", "falloutcustom.ini",  "custom.ini", "GECKCustom.ini", "GECKPrefs.ini"};
+  return { "fallout.ini", "falloutprefs.ini", "falloutcustom.ini", "GECKCustom.ini", "GECKPrefs.ini"};
 }
 
 QStringList GameFalloutNV::DLCPlugins() const
