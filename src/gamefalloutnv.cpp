@@ -296,8 +296,13 @@ MappingType GameFalloutNV::mappings() const
 
   for (const QString& profileFile : {"plugins.txt", "loadorder.txt"}) {
     result.push_back({m_Organizer->profilePath() + "/" + profileFile,
-                      localAppFolder() + "/" + gameDirectoryName() + "/" + profileFile,
+                      localAppFolder() + "/" + gameShortName() + "/" + profileFile,
                       false});
+    if (selectedVariant() == "Epic Games") {
+      result.push_back(
+          {m_Organizer->profilePath() + "/" + profileFile,
+           localAppFolder() + "/" + gameDirectoryName() + "/" + profileFile, false});
+    }
   }
 
   return result;
