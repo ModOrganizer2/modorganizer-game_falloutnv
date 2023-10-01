@@ -151,7 +151,7 @@ QList<ExecutableInfo> GameFalloutNV::executables() const
       << ExecutableInfo("LOOT", QFileInfo(getLootPath()))
              .withArgument("--game=\"FalloutNV\"");
   if (selectedVariant() != "Epic Games") {
-    extraExecutables.append(ExecutableInfo(
+    extraExecutables.prepend(ExecutableInfo(
         "NVSE", findInGameFolder(feature<ScriptExtender>()->loaderName())));
   } else {
     game.withArgument("-EpicPortal");
