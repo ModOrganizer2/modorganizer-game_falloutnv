@@ -141,19 +141,24 @@ void GameFalloutNV::detectGame()
 
 QList<ExecutableInfo> GameFalloutNV::executables() const
 {
-  QList<ExecutableInfo> executables =
+  ExecutableInfo game("New Vegas", findInGameFolder(binaryName()));
+  ExecutableInfo launcher("Fallout Launcher", findInGameFolder(getLauncherName()));
+  QList<ExecutableInfo> extraExecutables =
       QList<ExecutableInfo>()
-      << ExecutableInfo("New Vegas", findInGameFolder(binaryName()))
       << ExecutableInfo("Fallout Mod Manager", findInGameFolder("fomm/fomm.exe"))
       << ExecutableInfo("Construction Kit", findInGameFolder("geck.exe"))
-      << ExecutableInfo("Fallout Launcher", findInGameFolder(getLauncherName()))
       << ExecutableInfo("BOSS", findInGameFolder("BOSS/BOSS.exe"))
       << ExecutableInfo("LOOT", QFileInfo(getLootPath()))
              .withArgument("--game=\"FalloutNV\"");
-  if (selectedVariant() == "Epic Games") {
-    executables.append(ExecutableInfo(
+  if (selectedVariant() != "Epic Games") {
+    extraExecutables.append(ExecutableInfo(
         "NVSE", findInGameFolder(feature<ScriptExtender>()->loaderName())));
+  } else {
+    game.withArgument("-EpicPortal");
+    launcher.withArgument("-EpicPortal");
   }
+  QList<ExecutableInfo> executables = {game, launcher};
+  executables += extraExecutables;
   return executables;
 }
 
