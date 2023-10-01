@@ -55,8 +55,11 @@ void GameFalloutNV::setVariant(QString variant)
 
 void GameFalloutNV::checkVariants()
 {
+  QFileInfo gog_dll(m_GamePath + "\\Galaxy.dll");
   QFileInfo epic_dll(m_GamePath + "\\EOSSDK-Win32-Shipping.dll");
-  if (epic_dll.exists())
+  if (gog_dll.exists())
+    setVariant("GOG");
+  else if (epic_dll.exists())
     setVariant("Epic Games");
   else
     setVariant("Steam");
@@ -248,7 +251,7 @@ QStringList GameFalloutNV::primaryPlugins() const
 
 QStringList GameFalloutNV::gameVariants() const
 {
-  return {"Steam", "Epic Games"};
+  return {"Steam", "GOG", "Epic Games"};
 }
 
 QString GameFalloutNV::gameShortName() const
