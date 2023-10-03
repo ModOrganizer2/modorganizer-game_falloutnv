@@ -87,7 +87,8 @@ QString GameFalloutNV::identifyGamePath() const
     result = parseEpicGamesLocation({"5daeb974a22a435988892319b3a4f476"});
     if (QFileInfo(result).isDir()) {
       QDir startPath = QDir(result);
-      auto subDirs   = startPath.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+      auto subDirs   = startPath.entryList({"Fallout New Vegas*"},
+                                           QDir::Dirs | QDir::NoDotAndDotDot);
       if (!subDirs.isEmpty())
         result = subDirs.first();
     }
@@ -297,7 +298,6 @@ QDir GameFalloutNV::gameDirectory() const
   return QDir(m_GamePath);
 }
 
-// Not to delete all the spaces...
 MappingType GameFalloutNV::mappings() const
 {
   MappingType result;
