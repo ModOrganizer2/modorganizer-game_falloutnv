@@ -27,7 +27,9 @@
 
 using namespace MOBase;
 
-GameFalloutNV::GameFalloutNV() {}
+GameFalloutNV::GameFalloutNV()
+{
+}
 
 bool GameFalloutNV::init(IOrganizer* moInfo)
 {
@@ -36,11 +38,9 @@ bool GameFalloutNV::init(IOrganizer* moInfo)
   }
   registerFeature<ScriptExtender>(new FalloutNVScriptExtender(this));
   registerFeature<DataArchives>(new FalloutNVDataArchives(myGamesPath()));
-  registerFeature<BSAInvalidation>(
-      new FalloutNVBSAInvalidation(feature<DataArchives>(), this));
+  registerFeature<BSAInvalidation>(new FalloutNVBSAInvalidation(feature<DataArchives>(), this));
   registerFeature<SaveGameInfo>(new GamebryoSaveGameInfo(this));
-  registerFeature<LocalSavegames>(
-      new GamebryoLocalSavegames(myGamesPath(), "fallout.ini"));
+  registerFeature<LocalSavegames>(new GamebryoLocalSavegames(myGamesPath(), "Fallout.ini"));
   registerFeature<ModDataChecker>(new FalloutNVModDataChecker(this));
   registerFeature<ModDataContent>(new FalloutNVModDataContent(this));
   registerFeature<GamePlugins>(new GamebryoGamePlugins(moInfo));
@@ -104,7 +104,7 @@ void GameFalloutNV::setGamePath(const QString& path)
   registerFeature<BSAInvalidation>(
       new FalloutNVBSAInvalidation(feature<DataArchives>(), this));
   registerFeature<LocalSavegames>(
-      new GamebryoLocalSavegames(myGamesPath(), "fallout.ini"));
+      new GamebryoLocalSavegames(myGamesPath(), "Fallout.ini"));
 }
 
 QDir GameFalloutNV::savesDirectory() const
@@ -149,11 +149,9 @@ QList<ExecutableInfo> GameFalloutNV::executables() const
   QList<ExecutableInfo> extraExecutables =
       QList<ExecutableInfo>()
       << ExecutableInfo("Construction Kit", findInGameFolder("geck.exe"))
-      << ExecutableInfo("LOOT", QFileInfo(getLootPath()))
-             .withArgument("--game=\"FalloutNV\"");
+      << ExecutableInfo("LOOT", QFileInfo(getLootPath())).withArgument("--game=\"FalloutNV\"");
   if (selectedVariant() != "Epic Games") {
-    extraExecutables.prepend(ExecutableInfo(
-        "NVSE", findInGameFolder(feature<ScriptExtender>()->loaderName())));
+    extraExecutables.prepend(ExecutableInfo("NVSE", findInGameFolder(feature<ScriptExtender>()->loaderName())));
   } else {
     game.withArgument("-EpicPortal");
     launcher.withArgument("-EpicPortal");
@@ -205,12 +203,11 @@ void GameFalloutNV::initializeProfile(const QDir& path, ProfileSettings settings
   }
 
   if (settings.testFlag(IPluginGame::CONFIGURATION)) {
-    if (settings.testFlag(IPluginGame::PREFER_DEFAULTS) ||
-        !QFileInfo(myGamesPath() + "/fallout.ini").exists()) {
-      copyToProfile(gameDirectory().absolutePath(), path, "fallout_default.ini",
-                    "fallout.ini");
-    } else {
-      copyToProfile(myGamesPath(), path, "fallout.ini");
+    if (settings.testFlag(IPluginGame::PREFER_DEFAULTS) || !QFileInfo(myGamesPath() + "/Fallout.ini").exists()) {
+      copyToProfile(gameDirectory().absolutePath(), path, "Fallout_Default.ini", "Fallout.ini");
+    }
+    else {
+      copyToProfile(myGamesPath(), path, "Fallout.ini");
     }
 
     copyToProfile(myGamesPath(), path, "FalloutPrefs.ini");
@@ -273,7 +270,17 @@ QStringList GameFalloutNV::iniFiles() const
 
 QStringList GameFalloutNV::DLCPlugins() const
 {
-  return {"DeadMoney.esm", "HonestHearts.esm", "OldWorldBlues.esm", "LonesomeRoad.esm", "GunRunnersArsenal.esm", "CaravanPack.esm", "ClassicPack.esm", "MercenaryPack.esm", "TribalPack.esm"};
+  return {
+    "DeadMoney.esm",
+    "HonestHearts.esm",
+    "OldWorldBlues.esm",
+    "LonesomeRoad.esm",
+    "GunRunnersArsenal.esm",
+    "CaravanPack.esm",
+    "ClassicPack.esm",
+    "MercenaryPack.esm",
+    "TribalPack.esm"
+  };
 }
 
 int GameFalloutNV::nexusModOrganizerID() const
