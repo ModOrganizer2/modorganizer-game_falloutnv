@@ -73,7 +73,7 @@ QDir GameFalloutNV::documentsDirectory() const
 QString GameFalloutNV::identifyGamePath() const
 {
   auto result = GameGamebryo::identifyGamePath();  // Default registry path
-  // EPIC Game Store
+  // Epic Game Store
   if (result.isEmpty()) {
     /**
      * Basegame: 5daeb974a22a435988892319b3a4f476
@@ -87,8 +87,7 @@ QString GameFalloutNV::identifyGamePath() const
     result = parseEpicGamesLocation({"5daeb974a22a435988892319b3a4f476"});
     if (QFileInfo(result).isDir()) {
       QDir startPath = QDir(result);
-      auto subDirs   = startPath.entryList({"Fallout New Vegas*"},
-                                           QDir::Dirs | QDir::NoDotAndDotDot);
+      auto subDirs   = startPath.entryList({"Fallout New Vegas*"}, QDir::Dirs | QDir::NoDotAndDotDot);
       if (!subDirs.isEmpty())
         result = startPath.absoluteFilePath(subDirs.first());
     }
@@ -149,9 +148,7 @@ QList<ExecutableInfo> GameFalloutNV::executables() const
   ExecutableInfo launcher("Fallout Launcher", findInGameFolder(getLauncherName()));
   QList<ExecutableInfo> extraExecutables =
       QList<ExecutableInfo>()
-      << ExecutableInfo("Fallout Mod Manager", findInGameFolder("fomm/fomm.exe"))
       << ExecutableInfo("Construction Kit", findInGameFolder("geck.exe"))
-      << ExecutableInfo("BOSS", findInGameFolder("BOSS/BOSS.exe"))
       << ExecutableInfo("LOOT", QFileInfo(getLootPath()))
              .withArgument("--game=\"FalloutNV\"");
   if (selectedVariant() != "Epic Games") {
@@ -193,7 +190,7 @@ QString GameFalloutNV::description() const
 
 MOBase::VersionInfo GameFalloutNV::version() const
 {
-  return VersionInfo(1, 6, 0, VersionInfo::RELEASE_FINAL);
+  return VersionInfo(1, 6, 1, VersionInfo::RELEASE_FINAL);
 }
 
 QList<PluginSetting> GameFalloutNV::settings() const
@@ -216,9 +213,8 @@ void GameFalloutNV::initializeProfile(const QDir& path, ProfileSettings settings
       copyToProfile(myGamesPath(), path, "fallout.ini");
     }
 
-    copyToProfile(myGamesPath(), path, "falloutprefs.ini");
-    copyToProfile(myGamesPath(), path, "falloutcustom.ini");
-    copyToProfile(myGamesPath(), path, "custom.ini");
+    copyToProfile(myGamesPath(), path, "FalloutPrefs.ini");
+    copyToProfile(myGamesPath(), path, "FalloutCustom.ini");
     copyToProfile(myGamesPath(), path, "GECKCustom.ini");
     copyToProfile(myGamesPath(), path, "GECKPrefs.ini");
   }
@@ -272,15 +268,12 @@ QString GameFalloutNV::gameNexusName() const
 
 QStringList GameFalloutNV::iniFiles() const
 {
-  return {"fallout.ini", "falloutprefs.ini", "falloutcustom.ini",
-          "custom.ini",  "GECKCustom.ini",   "GECKPrefs.ini"};
+  return {"Fallout.ini", "FalloutPrefs.ini", "FalloutCustom.ini", "GECKCustom.ini", "GECKPrefs.ini"};
 }
 
 QStringList GameFalloutNV::DLCPlugins() const
 {
-  return {"DeadMoney.esm",    "HonestHearts.esm",      "OldWorldBlues.esm",
-          "LonesomeRoad.esm", "GunRunnersArsenal.esm", "CaravanPack.esm",
-          "ClassicPack.esm",  "MercenaryPack.esm",     "TribalPack.esm"};
+  return {"DeadMoney.esm", "HonestHearts.esm", "OldWorldBlues.esm", "LonesomeRoad.esm", "GunRunnersArsenal.esm", "CaravanPack.esm", "ClassicPack.esm", "MercenaryPack.esm", "TribalPack.esm"};
 }
 
 int GameFalloutNV::nexusModOrganizerID() const
@@ -308,8 +301,7 @@ MappingType GameFalloutNV::mappings() const
                       false});
     if (selectedVariant() == "Epic Games") {
       result.push_back(
-          {m_Organizer->profilePath() + "/" + profileFile,
-           localAppFolder() + "/" + gameDirectoryName() + "/" + profileFile, false});
+          {m_Organizer->profilePath() + "/" + profileFile, localAppFolder() + "/" + gameDirectoryName() + "/" + profileFile, false});
     }
   }
 

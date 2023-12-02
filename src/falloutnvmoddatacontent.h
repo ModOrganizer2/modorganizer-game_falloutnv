@@ -7,9 +7,6 @@
 class FalloutNVModDataContent : public GamebryoModDataContent
 {
 public:
-  /**
-   *
-   */
   FalloutNVModDataContent(GameGamebryo const* gamePlugin)
       : GamebryoModDataContent(gamePlugin)
   {

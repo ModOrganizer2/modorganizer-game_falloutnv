@@ -17,8 +17,7 @@ public:
   virtual QStringList archives(const MOBase::IProfile* profile) const override;
 
 private:
-  virtual void writeArchiveList(MOBase::IProfile* profile,
-                                const QStringList& before) override;
+  virtual void writeArchiveList(MOBase::IProfile* profile, const QStringList& before) override;
 };
 
 #endif  // FALLOUTNVDATAARCHIVES_H

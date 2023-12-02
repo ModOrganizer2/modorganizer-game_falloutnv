@@ -59,8 +59,7 @@ std::unique_ptr<GamebryoSaveGame::DataFields> FalloutNVSaveGame::fetchDataFields
     unsigned short dummyLevel;
     unsigned long dummySaveNumber;
 
-    fetchInformationFields(file, width, height, dummySaveNumber, dummyName, dummyLevel,
-                           dummyLocation);
+    fetchInformationFields(file, width, height, dummySaveNumber, dummyName, dummyLevel, dummyLocation);
   }
 
   QString playtime;
