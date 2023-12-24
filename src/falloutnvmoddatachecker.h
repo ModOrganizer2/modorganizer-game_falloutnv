@@ -16,7 +16,7 @@ protected:
         "scripts",    "shaders",    "sound",         "strings",   "textures",
         "trees",      "video",      "facegen",       "materials", "nvse",
         "distantlod", "asi",        "Tools",         "MCM",       "distantland",
-        "mits",       "dllplugins", "CalienteTools", "shadersfx", "config"};
+        "mits",       "dllplugins", "CalienteTools", "shadersfx", "config", "Keywords", "BaseObjectSwapper"};
     return result;
   }
   virtual const FileNameSet& possibleFileExtensions() const override
