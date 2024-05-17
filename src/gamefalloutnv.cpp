@@ -125,7 +125,7 @@ bool GameFalloutNV::isInstalled() const
 
 QString GameFalloutNV::gameName() const
 {
-  return "Fallout New Vegas";
+  return "New Vegas";
 }
 
 QString GameFalloutNV::gameDirectoryName() const
