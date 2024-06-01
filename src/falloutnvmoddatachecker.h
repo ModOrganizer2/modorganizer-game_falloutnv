@@ -38,7 +38,6 @@ protected:
                               "config",
                               "KEYWORDS",
                               "BaseObjectSwapper",
-                              "Root",
                               "RaceMenuPresets"};
     return result;
   }
